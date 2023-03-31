@@ -4,6 +4,7 @@ using DemoWebshop.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DemoWebshop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230331153350_CategoryDataSeediing")]
+    partial class CategoryDataSeediing
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -258,58 +260,6 @@ namespace DemoWebshop.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Ovo vino sa Korčule, punog tijela, jakih voćnih okusa i čvrste strukture, napunjeno je u svega nekoliko stotina buteljki, što objašnjava cijenu višu od Miravalove.",
-                            Image = "https://plavakamenica.hr/wp-content/uploads/2019/07/rosei-lista-ljeto-2019.jpg",
-                            InStock = 5m,
-                            Price = 15.50m,
-                            Sku = "f54ddeda72",
-                            Title = "Nerica Crni pošip 2018, Korčula, 90 /100 "
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Craft lager po originalnoj recepturi od 3 vrste hmelja i 3 vrste ječma, izraženog mirisa i slatkastog okusa.",
-                            Image = "https://www.promili.hr/web/image/product.template/2469/image_1024/%5B10664%5D%20Lepi%20De%C4%8Dki%20Tria%20De%20Los%20Muertos?unique=93f7694",
-                            InStock = 20m,
-                            Price = 2.15m,
-                            Sku = "f54ddeda73",
-                            Title = "Lepi Dečki Tria De Los Muertos"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Iriedaily Majice kratkih rukava za slobodno vrijeme.",
-                            Image = "https://cdn.aboutstatic.com/file/6c84093b0cfbdff00554177c964feb05?brightness=0.96&quality=75&trim=1&height=480&width=360",
-                            InStock = 3m,
-                            Price = 39.90m,
-                            Sku = "f54ddeda74",
-                            Title = "Majica 'Hopi'"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "Unutrašnjost : Tekstil\r\nGornjište : 27% Sintetika, 73% Tekstil\r\nDonjište : Guma",
-                            Image = "https://img.eobuwie.cloud/eob_product_512w_512h(b/7/a/3/b7a3409187765ea0fdfdfa35e5533ead4fcb4b70_01_0000301529996_rz.jpg,jpg)/obuca-nike-air-max-270-gs-wd-do6490-001-black-black-particle-grey.jpg",
-                            InStock = 2m,
-                            Price = 136.57m,
-                            Sku = "f54ddeda75",
-                            Title = "NIKE AIR MAX 270 (GS)"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Description = "Ako imate mješovitu do masniju kožu, ovo je savršen puder za vas, a sebum vam neće probijati kroz njega. Prekrivna moć je srednja do jača, ali osjećaj na licu je potpuno prirodan. Kožu će vam lagano matirati, ali ako je nakon nanošenja fiksirate transparentnim puderom i onda poprskate mineralnom vodicom za lice, dobit ćete savršeno prirodan look. S obzirom na vrlo pristupačnu cijenu i odličnu kvalitetu, ne čudi da je toliko omiljen.",
-                            Image = "https://miss7.24sata.hr/media/img/4b/41/57f9552057adc4c3d7fe.jpeg",
-                            InStock = 10m,
-                            Price = 20.30m,
-                            Sku = "f54ddeda76",
-                            Title = "Catrice HD Liquid Coverage"
-                        });
                 });
 
             modelBuilder.Entity("DemoWebshop.Models.ProductCategory", b =>
