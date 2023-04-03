@@ -26,6 +26,8 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 
 
     //dz
+
+    
     protected override void OnModelCreating(ModelBuilder builder)
     {
         //Data seeding for table Category
@@ -91,5 +93,45 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
         builder.Entity<Product>().HasData(posip, lepiDecki, majica, patike, puderTekuci);
 
         base.OnModelCreating(builder);
+
+
+        //Postavke za seedanje uloga i glavnog administratnora
+
+        //Tablica ASPNetRoles - Idewntitiy klasa IdentitiRole
+        string adminRoleId = "60e0aeba-595d-47d6-866f-83126dbc496f";
+        string adminRoleTitle = "Admin";
+        string customerRoleId = "14fed3de-9e17-4fe6-8e27-8bf45190ad08";
+        string customerRoleTitle = "Customer";
+
+        builder.Entity<IdentityRole>().HasData(
+            new IdentityRole() { Id = adminRoleId, Name= adminRoleTitle, NormalizedName= adminRoleTitle.ToUpper()},
+            new IdentityRole() { Id = customerRoleId, Name= customerRoleTitle, NormalizedName= customerRoleTitle.ToUpper()}
+            );
+
+        //Tablica AspNetUsers -identitiy klasa ApplucationUser (izvorno: identitiyUser)
+
+        string adminId = "b54b2adc7b39451e9796c022fae13794";
+        string admin = "mico@admin.com"; // i korisnicko ime i email vrijednost
+        string adminFirstName = "Mićo";
+        string adminLastName = "Programerić";
+        string adminPassword = "secret";
+        string adminAddress = "Stara Cesta bb";
+
+
+        // Za Hash lozinke
+        var hasher = new PasswordHasher<ApplicationUser>();
+        builder.Entity<ApplicationUser>().HasData(
+            new ApplicationUser {Id = adminId, UserName= admin, NormalizedUserName = admin.ToUpper(), Email= admin, NormalizedEmail = admin.ToUpper(), FirstName = adminFirstName, LastName = adminLastName, Address = adminAddress,PasswordHash = hasher.HashPassword(null, adminPassword) }
+            );
+
+
+        //Tablica AsdpNetUserRoles - Identity klasa IdentitiyUserRole<string> (veza izmedu Users i Roles)
+        builder.Entity<IdentityUserRole<string>>().HasData(
+                new IdentityUserRole<string>()
+                {
+                    UserId = adminId,
+                    RoleId = adminRoleId
+                }
+            );
     }
 }
