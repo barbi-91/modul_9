@@ -14,14 +14,15 @@ public class Program
         //Dohvat connection stringa
         var connectionString = builder.Configuration.GetConnectionString("Default") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
 
-
         //Servis za kreiranje resursa oobjekta klase konteksta              
         builder.Services.AddDbContext<ApplicationDbContext>(
             options => options.UseSqlServer(connectionString));
-        //Servis koji kaze kako je klasa ApplicationUser glavna za identifikaciju korisnika
 
+        //Servis koji kaze kako je klasa ApplicationUser glavna za identifikaciju korisnika
         builder.Services.AddDefaultIdentity<ApplicationUser>(
-            options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<ApplicationDbContext>();
+            options => options.SignIn.RequireConfirmedAccount = false)
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>();
 
         // Add services to the container.
         builder.Services.AddControllersWithViews();
@@ -46,6 +47,14 @@ public class Program
         app.UseAuthentication();
 
         app.UseAuthorization();
+
+        // podesavanje uloge admina
+
+        app.MapAreaControllerRoute(
+            name: "Admin",
+            areaName: "Admin",
+            pattern : "admin/{Controller}/{action}/{id?}"
+            ) ;
 
         app.MapControllerRoute(
             name: "default",
