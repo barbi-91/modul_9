@@ -9,14 +9,21 @@ namespace DemoWebshop.Data;
 
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 {
+    //Entity Frmaework - ORM (db contex dio njega), mapira podatake iz c# modela odnosno objektnog programiranja sa relacijskim modelom
+    //Relacijski model- princip izrade baze podataka temeljen na relacijama(povezivanja tablica)
+    //Relacija-tablica
+    //EF je samo jedan od ORMova
+    //Mapiraj C# klase modela s tablicam u bazi podatka- ORM(object realtional maper)-dodavanje, uklanjanje, mijenjanje podataka u bazi iz modela
 
-    //Mapiraj C# klase modela s tablicam u bazi podatka
+    //Klasa iz modela mapirana je sa tablicom u bazi
+    //Razina nize: svojstvo iz klase mapirano je na stupac (atribut)
+
+    //Klase se PIISU U JEDNINI , DOK SE IMENA TABLICA U BZI PISU U MNOZINI
     public DbSet<Category> Categories { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<ProductCategory> ProductCategories { get; set; }
     public DbSet<OrderItem> OrderItems { get; set; }
-
 
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -25,7 +32,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     }
 
 
-    //dz
+    //dz -SEEDANJE PODATAKA ZA CATEGORY I PRODUCT
 
     
     protected override void OnModelCreating(ModelBuilder builder)
@@ -97,7 +104,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 
         //Postavke za seedanje uloga i glavnog administratnora
 
-        //Tablica ASPNetRoles - Idewntitiy klasa IdentitiRole
+        //Tablica ASPNetRoles - Identitiy klasa IdentitiRole zaduzena za uloge
         string adminRoleId = "60e0aeba-595d-47d6-866f-83126dbc496f";
         string adminRoleTitle = "Admin";
         string customerRoleId = "14fed3de-9e17-4fe6-8e27-8bf45190ad08";
@@ -114,14 +121,26 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
         string admin = "mico@admin.com"; // i korisnicko ime i email vrijednost
         string adminFirstName = "Mićo";
         string adminLastName = "Programerić";
-        string adminPassword = "secret";
+        string adminPassword = "secret";  //lozinka
         string adminAddress = "Stara Cesta bb";
 
 
-        // Za Hash lozinke
+        // Za Hash lozinke - tehnika stringa u set znakova : secret u hash
         var hasher = new PasswordHasher<ApplicationUser>();
+
         builder.Entity<ApplicationUser>().HasData(
-            new ApplicationUser {Id = adminId, UserName= admin, NormalizedUserName = admin.ToUpper(), Email= admin, NormalizedEmail = admin.ToUpper(), FirstName = adminFirstName, LastName = adminLastName, Address = adminAddress,PasswordHash = hasher.HashPassword(null, adminPassword) }
+            new ApplicationUser 
+                {
+                    Id = adminId, 
+                    UserName= admin, 
+                    NormalizedUserName = admin.ToUpper(), 
+                    Email= admin, 
+                    NormalizedEmail = admin.ToUpper(), 
+                    FirstName = adminFirstName, 
+                    LastName = adminLastName, 
+                    Address = adminAddress,
+                    PasswordHash = hasher.HashPassword(null, adminPassword) 
+                }
             );
 
 

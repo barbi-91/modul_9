@@ -1,0 +1,66 @@
+﻿@using Microsoft.AspNetCore.Http
+
+
+@inject HttpContext _context
+
+
+<h1>Hej, ovdje samo testiramo sesije!</h1>
+
+<hr />
+
+<p>@ViewBag.ReadSessionString</p>
+
+<hr />
+
+@*Context  je svojstvo u kojega u pogedima mvc arhitekture mozem doci do sesije*@
+<p> @Context.Session.GetString("sessionString")</p> 
+@*prilikom dolaska u pogled mi bi trebali moci procitati sesiju*@
+
+@if (!String.IsNullOrEmpty(Context.Session.GetString("privacyString"))){
+    <p>Dobro došli! </p>
+
+
+}
+
+@{
+    Context.Session.SetString("privacyString", String.Empty);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

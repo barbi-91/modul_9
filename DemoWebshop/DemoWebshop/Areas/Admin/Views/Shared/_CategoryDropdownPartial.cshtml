@@ -1,0 +1,24 @@
+﻿@*//ubaci nam odredene datoteke kako bimo pozvali odredene klase*@
+@*//kad god se pozove ovaj djelomicni pogled dohvati nam svakiputa sve podatke iz baze*@
+@using DemoWebshop.Data;
+
+@inject ApplicationDbContext _dbContext
+
+
+<div class="form-group">
+    <lable class="contorl-lable"> Select ProductCategories</lable>
+
+    <select class="form-control" name="categoryIds[]" multiple>
+        @foreach(var categoryItem in _dbContext.Categories.ToList())
+        {
+            //dodavanjem usklicnika kazemo mu da ovo ne tretira kao programski kod, vec ga uredujemo kao html
+            <!option value="@categoryItem.Id"
+            @if(ViewBag.ProductCategories != null){
+                 @(ViewBag.ProductCategories.Contains(categoryItem.Id) ? "selected" : "" )
+            }
+            >
+                @categoryItem.Title
+            </!option>
+        }
+    </select>
+</div>
