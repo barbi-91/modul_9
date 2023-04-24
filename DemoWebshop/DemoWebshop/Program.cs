@@ -13,9 +13,19 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         //Dohvat connection stringa
-        var connectionString = builder.Configuration.GetConnectionString("Default") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
+        var connectionString = "" ;
+        if (!builder.Environment.IsEnvironment("Production"))
+        {
+            //Provjerava ako je okruzenje nije produkcijsko
+            connectionString = builder.Configuration.GetConnectionString("Default");
+        }
+        else
+        {
+            //Provjeravaa ako je produkcisjko okruzenje
+            connectionString= Environment.GetEnvironmentVariable("WEB_MODUL9_CONN_STRING");
+        }
 
-        //Servis za kreiranje resursa oobjekta klase konteksta      ---db contex radi na bilo kojoj bazi ovdje korisitmo za sql server        
+        //Servis za kreiranje resursa oobjekta klase konteksta---db contex radi na bilo kojoj bazi ovdje korisitmo za sql server        
         builder.Services.AddDbContext<ApplicationDbContext>(
             options => options.UseSqlServer(connectionString));
 

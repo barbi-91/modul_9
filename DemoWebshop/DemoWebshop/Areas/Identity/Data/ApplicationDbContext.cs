@@ -116,6 +116,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             );
 
         //Tablica AspNetUsers -identitiy klasa ApplucationUser (izvorno: identitiyUser)
+        //Kreiranje usera prije podataka o rolama
 
         string adminId = "b54b2adc7b39451e9796c022fae13794";
         string admin = "mico@admin.com"; // i korisnicko ime i email vrijednost

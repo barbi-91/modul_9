@@ -29,7 +29,7 @@ namespace DemoWebshop.Controllers
             List<CartItem> cart = HttpContext.Session.GetCartObjectFromJson(sessionCartKey);
 
             // KOrak 2: Provjeri errror poruku
-            ViewBag.CartErrorMessage = TempData["CartErrorrMessage"] as string ?? "" ;
+            ViewBag.CartErrorMessage = TempData["CartErrorrMessage"] as string ?? "";
 
 
             return View(cart);
@@ -72,7 +72,7 @@ namespace DemoWebshop.Controllers
             if (cart.Count == 0)
             {
                 // Sto ako netko zeli vise proizvoda nego sto ih imamo dosutpno?
-                if (quantity >findProduct.InStock)
+                if (quantity > findProduct.InStock)
                 {
                     TempData["CartErrorMessage"] = $"Nije moguce dodati proizvdo u kosaricu! NA ZALIHI je dostupno {findProduct.InStock}";
                     return RedirectToAction(nameof(Index));
@@ -122,10 +122,23 @@ namespace DemoWebshop.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //TODO: RemoveFromCart(int productId)
+        //DZ - RemoveFromCart(int productId)
+        public IActionResult RemoveFromCart(int productId)
+        {
+            //Korak 1: Pronađi sesiju košarice i dodijeli je varijabli generičke kolekcije cart
+            List<CartItem> cart = HttpContext.Session.GetCartObjectFromJson(sessionCartKey);
+
+            //Korak 2: Ukloni sve proizvode koji se podudaraju s Id-em parametra(npr.: metodom RemoveAll())
+            cart.RemoveAll(cartItem => cartItem.Product.Id == productId);
+
+            //Korak 3: Ažuriraj sesiju
+            HttpContext.Session.SetCartObjectAsJson(sessionCartKey, cart);
+
+            //Korak 4: Vrati se na stranicu košarice
+            return RedirectToAction(nameof(Index));
+        }
 
         //GET: TestSession()
-
         public IActionResult TestSession()
         {
 

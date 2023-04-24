@@ -39,7 +39,8 @@
                 @foreach(var item in Model)
                 {
                     <tr>
-                        <td>@*Dugme za uklanjanje iz kosarice*@</td>
+                        @*DZ Dugme za uklanjanje iz kosarice u prvom stupcu tablice*@
+                        <td><a class="btn btn-primary" asp-controller="Cart" asp-action="RemoveFromCart" asp-route-productId="@item.Product.Id" name="Remove">Remove</a></td>
                         <td>@item.Product.Title</td>
                         <td>@item.Product.Price.ToString("C2")</td>
                         <td>@item.Quantity</td>

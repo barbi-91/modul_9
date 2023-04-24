@@ -1,7 +1,7 @@
 ﻿@model List<Product>
 
 @{
-    ViewData["Title"] = "Dobro dosli na nas mail webshop";
+    ViewData["Title"] = "Dobro dosli na nas mali webshop";
     ViewData["Description"] = "Ovo je projektni zadatak programa obrazovanja ASP.NET Developer";
 }
 <div class="text-center">
@@ -14,11 +14,13 @@
     @Context.Session.GetString("sessionString")
 </p>
 
-@*//u slucaju da je prazna lista, prikazat ce praznu stranicu (bez ovog uvjeta)*@
-@*@if(Model != null)
+@if (!String.IsNullOrEmpty(ViewBag.ThankYouMessage))
 {
-}*@
+    <div class="col-12">
+        <p class="alert alert-danger">@ViewBag.ThankYouMessage</p>
 
+    </div>
+}
 
 @*//metoda prosljeduje podatke u urlu nase strnice - query string- varijabla i njena vrijdnost u urlu*@
 <form method="get" asp-area="" asp-controller="Home" asp-action="Index" class="row mb-5">

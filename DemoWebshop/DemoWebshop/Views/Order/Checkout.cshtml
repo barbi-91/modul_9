@@ -13,7 +13,7 @@
 @if (!String.IsNullOrEmpty(ViewBag.CheckoutMessages))
 {
     <div class="col-12">
-        <p class="alert alert-dange">@ViewBag.CheckoutMessages/p>
+        <p class="alert alert-danger">@Html.Raw(ViewBag.CheckoutMessages)/p>
     </div>
 }
 <div class="row">
@@ -106,6 +106,12 @@
             <div class="col-md-6 mb-3">
                 <label>Message</label>
                 <textarea class="form-control" rows="5" name="Message"></textarea>
+            </div>
+
+            <div class="col-md-12">
+                <a class="btn btn-warning" asp-area="" asp-controller="Home" asp-action="Index">Continue Shopping</a>
+
+                <button class="btn btn-success" type="submit">Finish order</button>
             </div>
 
         </form>
